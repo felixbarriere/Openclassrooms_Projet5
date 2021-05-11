@@ -7,6 +7,8 @@
         <title>Orinoco</title>
         <link rel="shortcut icon" type="image/png" href="" />
         <script src="https://kit.fontawesome.com/de67e9dd03.js" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="orinoco.js" defer></script>
     </head>
     <body>
 
@@ -15,11 +17,11 @@
         <header>  
             <div>
                 <div id="header_logo" >
-                    <img src="images/logo.png" id="main_logo" alt="Logo Orinoco" />
+                    <a href="index_Orinoco.html"><img src="images/logo.png" id="main_logo" alt="Logo Orinoco" /></a>
                 </div>                                                      
                 <nav>
-                    <a class="header_navbar_menu"  >Panier</a>
-                    <a class="header_navbar_menu"  >Menu</a>                            
+                    <a class="header_navbar_menu" href="panier.html">Panier</a>
+                    <a class="header_navbar_menu" href="index_Orinoco.html">Menu</a>                            
                 </nav>
             </div>
         </header>
@@ -29,15 +31,20 @@
         <h1>Nos produits</h1>
         <section id="section">
             
-            <template id="template_product" >             
-                <div id="product_bloc"> 
-                    <div id="product_bloc_photo_container"></div>
-                    <div id="product_bloc_text">
-                            <div id="product_bloc_text_name">Nom</div>
-                            <div id="product_bloc_text_description">Description</div>
-                            <div id="product_bloc_text_price">Prix</div>
-                    </div>
-                </div>  
+            <template id="template" >             
+                
+                    <div id="product_bloc"> 
+                        
+                        <div id="product_bloc_photo_container"></div>
+                        <div id="product_bloc_text">
+                                <h2 id="product_bloc_text_name">Nom</h2>
+                                <div id="product_bloc_text_description">Description</div>
+                                <div id="product_bloc_text_price">Prix</div>
+                                <div id="container_product_bloc_text_button"></div>
+                                
+                        </div>
+                    </div>  
+                
             </template>   
 
 
@@ -72,4 +79,3 @@
     </body>     
 </html>
 
-<script type="text/javascript" src="orinoco.js"></script>

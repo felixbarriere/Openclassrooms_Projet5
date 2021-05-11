@@ -48,49 +48,45 @@ fetch retournant une promesse, on indique que "main"est une fonction asynchrone 
 et que "getData" attend la résolution (await) 
 */
 
-//const product = document.getElementById("product_bloc");
-
 /*La fonction displayData affiche les données récupérées via l'API
 On utilise "innerHTML" pour mettre en page les éléments où on le souhaite (V1)
-V2: on clone le template html puis on l'ajoute.
+V2: on clone le template html puis on l'ajoute, afin d'éviter les failles XSS (innerHTML)
 Nous souhaitons afficher tous les articles, on utilise donc une boucle (for/of) 
 sur "displayData" dans la fonction "main"*/ 
 
 function displayData (articles)
 {
-    const templateProduct = document.getElementById("template_product")
+    const templateProduct = document.getElementById("template")
     const clone = document.importNode(templateProduct.content, true)
-    
-    //const product_bloc_photo = `<img src="${articles.imageUrl}">`
-    //const affichage_image = clone.getElementById("product_bloc_photo")
-
-    //clone.getElementById("product_bloc_photo").insertAdjacentHTML(afterbegin, product_bloc_photo)
-
-    //console.log(affichage_image);
-
-    //clone.getElementById("product_bloc_photo").innerHTML = articles.imageUrl
 
     clone.getElementById("product_bloc_photo_container").innerHTML = `<img id="product_bloc_photo" src="${articles.imageUrl}">`
     clone.getElementById("product_bloc_text_name").textContent = articles.name
     clone.getElementById("product_bloc_text_description").textContent = articles.description
-    clone.getElementById("product_bloc_text_price").textContent = articles.price
-    
+    clone.getElementById("product_bloc_text_price").textContent = articles.price + " euros"
 
-    document.getElementById("section").appendChild(clone)
+    clone.getElementById("container_product_bloc_text_button").innerHTML = `
+    <a id="product_bloc_text_button" type="button" href="produit.html?${articles._id}">Plus d'informations</a>`
+
+    document.getElementById("section").appendChild(clone)    
 }
 
 
-
-/* V1:
+/*V1:
 function displayData (articles)
 {
 document.getElementById("section").innerHTML +=`
 <div id="product_bloc" >    
-    <img src="${articles.imageUrl}">
-    <div href="">
-        <div class="product_bloc_text_name">${articles.name}</div>
-        <div class="product_bloc_text_description">${articles.description}</div>
-        <div class="product_bloc_text_price">${articles.price} euros</div>
+    <div id="product_bloc_photo_container">
+        <img id="product_bloc_photo" src="${articles.imageUrl}">
+    </div>
+    <div id="product_bloc_text">
+        <div id="product_bloc_text_name">${articles.name}</div>
+        <div id="product_bloc_text_description">${articles.description}</div>
+        <div id="product_bloc_text_price">${articles.price} euros</div>
+        <a id="product_bloc_text_button" type="button" href="produit.html?${articles._id}">Plus d'informations</a>
     </div> 
 </div>`  
 };*/
+
+
+
