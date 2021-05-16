@@ -65,11 +65,13 @@ function displayData (articles)
     function cart()
     {  
         let produitLocalStorage = JSON.parse(localStorage.getItem('produit'));
-        // JSON.parse convertit les données JSON du localStorage en objet JS (!=JSON.stringify)
+        //let quantitéLocalStorage = JSON.parse(localStorage.getItem('quantité'));
+        //JSON.parse convertit les données JSON du localStorage en objet JS (!=JSON.stringify)
         
         let quantity = document.getElementById("card_quantity_input").value
 
         productArray = [articles, quantity];
+        //quantityArray = [quantity];
 
     //si produit présents dans localStorage:
     if (quantity == 0)
@@ -83,6 +85,9 @@ function displayData (articles)
 
                     produitLocalStorage.push(productArray);
                     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+                    //quantitéLocalStorage.push(quantityArray);
+                    //localStorage.setItem("quantité", JSON.stringify(quantitéLocalStorage));
+
                     alert("Votre produit a bien été ajouté au panier"); 
                     //possibilité d'empecher l'utilisateur d'ajouter le meme produit; dans ce cas, ajouter une alerte.      
                 }
@@ -94,8 +99,12 @@ function displayData (articles)
 
                     produitLocalStorage = [];
                     produitLocalStorage.push(productArray);
-
                     localStorage.setItem("produit", window.JSON.stringify(produitLocalStorage));
+
+                    //quantitéLocalStorage = [];
+                    //quantitéLocalStorage.push(quantityArray);
+                    //localStorage.setItem("quantité", window.JSON.stringify(quantitéLocalStorage));
+
                     alert("Votre produit a bien été ajouté au panier");       
 
                 }
