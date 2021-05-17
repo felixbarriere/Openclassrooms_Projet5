@@ -292,12 +292,13 @@ footer
 
 #card_bloc2
 {
-    margin: 1rem 3rem ;
+    margin: 1rem 1rem ;
 }
 
 #card_bloc2
 {
     height: auto;
+    min-width: 170px;
 }
 
 #card_bloc_text_name, #cardbloc_text_description
@@ -308,11 +309,16 @@ footer
 
 #card_product_bloc_text
 {
-    width: 200px;
+    
 }
 
 #card_bloc_bottom
 {
     display: flex;
     justify-content: space-between;
+}
+
+#card_delete, #card_delete_item
+{
+    cursor: pointer;
 }

@@ -7,11 +7,9 @@ let produitLocalStorage = JSON.parse(window.localStorage.getItem('produit'));
 if (!produitLocalStorage)
     {
         document.getElementById("empty_card").textContent = `Votre panier est vide`;
-        console.log("vide");
     }
     else
         {          
-            console.log("pas vide")
 
             let structureProduitPanier = [];   
             let structureSommeTotale = [];
@@ -44,7 +42,7 @@ if (!produitLocalStorage)
                                     <p>Prix:</p>
                                     <div id="card_bloc_bottom">
                                         <div id="card_bloc_text_price">${prix} euros</div>
-                                        <button id="card_delete_item" delete_id="${infosDuTableau._id}">supprimer</div>
+                                        <button class="card_delete_item" id="${infosDuTableau._id}">supprimer</div>
                                    </div>     
                                 </div>
                             </div>`
@@ -53,25 +51,65 @@ if (!produitLocalStorage)
 
                             prixArray.push(prix);
 
-                            //supprimer un produit  / modifier le bouton                        
-
-                            let deleteItemButton = document.getElementById("card_delete_item");  
-                            
-                            console.log(deleteItemButton)
-
-                            console.log(infosDuTableau._id)
+                         
  
-                            function deleteItem()
-                                {                  
-                                    let productToDelete = deleteItemButton.getAttribute("delete_id");    
-                                    console.log(productToDelete)         
-                                    //localStorage.removeItem("produit", infosDuTableau);
-                                }
-
-                            deleteItemButton.addEventListener("click", deleteItem);   
+                               
                         }  
+                    //supprimer un produit  / modifier le bouton                        
+                            
+                    //let productToDelete2 = document.getElementsByClassName(infosDuTableau._id);
+                    //console.log(productToDelete2)
 
-                    console.log(prixArray)                                    
+                    //let deleteItemButton = productToDelete.getAttribute("delete_id");
+
+                    let productToDelete = document.querySelectorAll(".card_delete_item"); 
+       
+                    for(i=0; i<productToDelete.length; i++)
+                    {
+                    let tableauLS = produitLocalStorage[i];
+                    let infosDuTableau = tableauLS[0]
+                    let idInfosDuTableau = infosDuTableau._id;  
+
+                    let productToDelete2 = productToDelete[i]
+                    let productToDelete3 = productToDelete2.getAttribute('id');
+               
+                    //localStorage.removeItem("produit", infosDuTableau);
+                    console.log(produitLocalStorage[i][0])
+                        
+                        productToDelete2.addEventListener("click", (event) =>
+                            {   
+                                //suppression produit V1:
+                                console.log(productToDelete3)
+                                console.log(produitLocalStorage)
+                                
+                                
+                                produitLocalStorage = produitLocalStorage.filter(el => el.productToDelete3 == idInfosDuTableau)
+
+                                console.log(idInfosDuTableau)
+                                
+                                
+                                
+                                
+                                /*
+                                suppression produit V2
+                                
+                                console.log(productToDelete3)
+                                
+                                
+                                console.log(produitLocalStorage)
+
+                                var tabElementsSupprimes = produitLocalStorage.splice(0, 1)
+                                console.log(tabElementsSupprimes)*/
+                                
+                                
+                                
+                                
+                              
+                            });
+                    }
+
+                    // Affichage du prix total
+
                     let prixTotal = 0;
                         
                         for(i=0; i<prixArray.length; i++)
