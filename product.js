@@ -16,7 +16,7 @@ async function main()
 
 function getData ()
 {
-    return fetch(`http://orinocofelixbarriere.herokuapp.com/api/cameras/${id}`)
+    return fetch(`https://orinocofelixbarriere.herokuapp.com/api/cameras/${id}`)
         .then(function(response) 
         {   
             return response.json();  
