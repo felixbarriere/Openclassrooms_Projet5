@@ -1,242 +1,345 @@
-//solution possible: essayer de n'envoyer que l'ID et la quantité dans le LS, puis utiliser l'ID pour faire un fetch.
-//un tableau par valeur (1 tableau _id, 1 tableau quantité)
-
 let produitLocalStorage = JSON.parse(window.localStorage.getItem('produit'));
-//let quantitéLocalStorage = JSON.parse(window.localStorage.getItem('quantité'));
 
-if (!produitLocalStorage)
+if (!produitLocalStorage || produitLocalStorage == "")
     {
-        document.getElementById("empty_card").textContent = `Votre panier est vide`;
+        document.getElementById("empty_card").textContent = `Panier vide`;
     }
     else
         {          
-
             let structureProduitPanier = [];   
-            let structureSommeTotale = [];
-
-            //V1:
-            let prix= 0;
             let prixArray = [];
+            const products = [];
 
-            function displayData()
-                {
-                    for(i = 0; i<produitLocalStorage.length; i++)
-                        {         
-                            let tableauLS = produitLocalStorage[i];
 
-                            let infosDuTableau = tableauLS[0]
-                            let quantitéDuTableau = tableauLS[1]           
-                            
-                            prix = infosDuTableau.price*quantitéDuTableau;
-                                              
-                            structureProduitPanier = structureProduitPanier 
-                            + 
-                            `<div id="card_bloc_photo_container"><img id="card_bloc_photo" src="${infosDuTableau.imageUrl}"></div> 
-                            <div id="card_bloc_text">
-                                <h2 id="card_bloc_text_name">${infosDuTableau.name}</h2>                                                                                                                
-                                <div id="card_bloc_text_quantity">
-                                    <p>Quantité: </p>
-                                    <div> ${quantitéDuTableau}</div>
-                                </div>                             
-                                <div id="card_bloc_text_price_container">
-                                    <p>Prix:</p>
-                                    <div id="card_bloc_bottom">
-                                        <div id="card_bloc_text_price">${prix} euros</div>
-                                        <button class="card_delete_item" id="${infosDuTableau._id}">supprimer</div>
-                                   </div>     
-                                </div>
-                            </div>`
+//Affichage des produits selectionnés (via le Local Storage)                      
 
-                            document.getElementById("card_bloc").innerHTML = structureProduitPanier;
-
-                            prixArray.push(prix);
-
-                         
- 
-                               
-                        }  
-                    //supprimer un produit  / modifier le bouton                        
-                            
-                    //let productToDelete2 = document.getElementsByClassName(infosDuTableau._id);
-                    //console.log(productToDelete2)
-
-                    //let deleteItemButton = productToDelete.getAttribute("delete_id");
-
-                    let productToDelete = document.querySelectorAll(".card_delete_item"); 
-       
-                    for(i=0; i<productToDelete.length; i++)
-                    {
+            for(i = 0; i<produitLocalStorage.length; i++)
+                {         
                     let tableauLS = produitLocalStorage[i];
-                    let infosDuTableau = tableauLS[0]
-                    let idInfosDuTableau = infosDuTableau._id;  
+                    
+                    let image = tableauLS[0]
+                    let name = tableauLS[1]
+                    let description = tableauLS[2]
+                    let prix = tableauLS[3]
+                    let lenses = tableauLS[4]
+                    let id = tableauLS[5]
+                    let quantity = tableauLS[6]
 
-                    let productToDelete2 = productToDelete[i]
-                    let productToDelete3 = productToDelete2.getAttribute('id');
-               
-                    //localStorage.removeItem("produit", infosDuTableau);
-                    console.log(produitLocalStorage[i][0])
-                        
-                        productToDelete2.addEventListener("click", (event) =>
-                            {   
-                                //suppression produit V1:
-                                console.log(productToDelete3)
-                                console.log(produitLocalStorage)
-                                
-                                
-                                produitLocalStorage = produitLocalStorage.filter(el => el.productToDelete3 == idInfosDuTableau)
-
-                                console.log(idInfosDuTableau)
-                                
-                                
-                                
-                                
-                                /*
-                                suppression produit V2
-                                
-                                console.log(productToDelete3)
-                                
-                                
-                                console.log(produitLocalStorage)
-
-                                var tabElementsSupprimes = produitLocalStorage.splice(0, 1)
-                                console.log(tabElementsSupprimes)*/
-                                
-                                
-                                
-                                
-                              
-                            });
-                    }
-
-                    // Affichage du prix total
-
-                    let prixTotal = 0;
-                        
-                        for(i=0; i<prixArray.length; i++)
-                            {
-                                prixTotal += prixArray[i];
-                            }
-
-                    structureSommeTotale = ` 
-                    <div id="card_product_bloc_text">
-                        <h2 id="card_bloc_text_name">Prix total</h2>
-                        <p id="card_bloc_text_description">${prixTotal} euros</p>
-                        
-                        <button id="card_delete" >Vider le panier</div>
+                    let prixProduit = prix*quantity;
+                                                                    
+                    structureProduitPanier = structureProduitPanier 
+                    + 
+                    `<div id="card_bloc_container">
+                        <div id="card_bloc_photo_container">
+                            <img id="card_bloc_photo" src="${image}"></img>
+                        </div> 
+                        <div id="card_bloc_text">
+                            <h2 id="card_bloc_text_name">${name}</h2>                                                                                                                
+                            <div id="card_bloc_text_quantity">
+                                <p>Quantité: </p>
+                                <div> ${quantity}</div>
+                                <input type="number" value=${quantity} id="card_quantity_input" min="0" max="10">
+                            </div>                             
+                            <div id="card_bloc_text_price_container">
+                                <p>Prix:</p>
+                                <div id="card_bloc_bottom">
+                                    <div id="card_bloc_text_price">${prixProduit} euros</div>
+                                    <button class="card_delete_item" id="${id}">supprimer</button>
+                                </div>     
+                            </div>
+                        </div>
                     </div>`
 
-                    document.getElementById("card_bloc2").innerHTML = structureSommeTotale;     
+                    document.getElementById("card_bloc").innerHTML = structureProduitPanier;
+
+                    //let quantity2 = document.getElementById("card_quantity_input").value;
+
+                    // produitLocalStorage[i][6] = document.getElementById("card_quantity_input").value;
+                    //localStorage.setItem("produit", window.JSON.stringify(quantity));
+
+                    // console.log(document.getElementById("card_quantity_input").value)
+                    // console.log(produitLocalStorage[i][6])
+                    // console.log(quantity)
+                    // console.log(produitLocalStorage)
+
+                    prixArray.push(prixProduit); 
+                    products.push(id);
+                }  
+                
+//suppression d'un produit                       
+
+            document.addEventListener("click", event =>
+            {
+                if(!event.target.classList.contains("card_delete_item"))
+                    {
+                        return;
+                    }
+            //Compare l'id du bouton à celui du tableau de produits et supprime l'élément correspondant
+                for(element in produitLocalStorage)
+                    {
+                        if(produitLocalStorage[element][5] == event.target.id)
+                            {
+                                produitLocalStorage.splice(element, 1)
+                                localStorage.setItem("produit", window.JSON.stringify(produitLocalStorage));
+                                window.location.reload();
+                            }
+                    }
+            });
+            let deleteButton = document.querySelectorAll(".card_delete_item");
+
+// Affichage du prix total et envoi dans le LS
+
+            let prixTotal = 0;
+                
+                for(i=0; i<prixArray.length; i++)
+                    {
+                        prixTotal += prixArray[i];
+                    }
+
+            structureSommeTotale = ` 
+            <div id="card_product_bloc_text">
+                <h2 id="card_bloc_text_name">Prix total</h2>
+                <p id="card_bloc_text_description">${prixTotal} euros</p>
+                
+                <button id="card_delete" >Vider le panier</div>
+            </div>`
+
+            document.getElementById("card_bloc2").innerHTML = structureSommeTotale;     
+            localStorage.setItem("prix total", window.JSON.stringify(prixTotal));
+
+// Vider le panier
+
+            let deleteCardButton = document.getElementById("card_delete");           
+
+            function deleteCard()
+                {                                                   
+                    localStorage.removeItem("produit");
+                    window.location.reload();
+                }
+            deleteCardButton.addEventListener("click", deleteCard);     
+            
+//Affichage du formulaire de commande
+
+            let structureForm = 
+            `<h2 id="form_title">Informations de contact</h2>
+            <div id="form_input">
+                <div>
+                    <label>Prénom</label>
+                    <input type="text" id="firstName"  name="Votre prénom" required>
+                </div>
+                <div>
+                    <label>Nom</label>
+                    <input type="text" id="lastName" name="Votre nom" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="text" id="email" name="Votre email" required>
+                </div>
+                <div>
+                    <label>Téléphone</label>
+                    <input type="text" id="telephone" name="Votre numéro de téléphone" required>
+                </div>
+                <div>
+                    <label>Ville</label>
+                    <input type="text" id="city" name="Votre ville" required>
+                </div>
+                <div>
+                    <label>Adresse</label>
+                    <textarea type="text" id="adress" name="Votre adresse" required></textarea>
+                </div>
+                <div>
+                    <label>Code Postal</label>
+                    <input type="text" id="CodePostal" name="Votre code postal" required>
+                </div>
+                <div id="container_product_bloc_text_button"> 
+                    <a  id="product_bloc_text_button" type="button" href="confirmation.html">Commander</a>
+                </div>
+            </div>`
+            document.getElementById("card_form").innerHTML = structureForm;
+
+//Envoi des données du formulaire de commande
+
+            let buttonForm = document.getElementById("product_bloc_text_button");
+
+            function sendForm (event)
+                {
+                    event.preventDefault();
+
+                    class formulaireData{
+                        constructor(input){
+                            this.firstName = document.getElementById("firstName").value;
+                            this.lastName = document.getElementById("lastName").value;
+                            this.email = document.getElementById("email").value;
+                            this.telephone = document.getElementById("telephone").value;
+                            this.city = document.getElementById("city").value;
+                            this.adress = document.getElementById("adress").value;
+                            this.CodePostal = document.getElementById("CodePostal").value;
+                        }
+                    }
+                    const formulaireDataToSend = new formulaireData();
                     
-                    // Vider le panier
+//REGEX
+                    const firstName = formulaireDataToSend.firstName;
+                    const lastName = formulaireDataToSend.lastName;
+                    const email = formulaireDataToSend.email;
+                    const telephone = formulaireDataToSend.telephone;
+                    const city = formulaireDataToSend.city;
+                    const adress = formulaireDataToSend.adress;
+                    const CodePostal = formulaireDataToSend.CodePostal;
 
-                    let deleteCardButton = document.getElementById("card_delete");           
+                    //Prenom, Nom, ville
+                    function regexPrenomNomVille (value)
+                    {
+                        return /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{3,20}$/.test(value);
+                    }
+                        function envoiPrenomNom ()
+                        {   
+                            if(regexPrenomNomVille(firstName) && regexPrenomNomVille(lastName) && regexPrenomNomVille(city))
+                            {
+                                return true;
+                            }
+                            else
+                                {
+                                    alert("Prénom, Nom, Ville: Chiffres en symboles non autorisés, maximum 20 caractères");
+                                    return false;
+                                }
+                        }
+                    //Mail
+                    function regexMail (value)
+                    {
+                        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+                    }
+                        function envoiMail ()
+                        {   
+                            if(regexMail(email))
+                            {
+                                return true;
+                            }
+                            else
+                                {
+                                    alert("Votre email est invalide");
+                                    return false;
+                                }
+                        }  
 
-                    function deleteCard()
-                        {                                                   
-                            localStorage.removeItem("produit");
-                            window.location.reload();
+                    //Téléphone
+                    function regexPhone (value)
+                    {
+                        return /^0[1-9]([-. ]?[0-9]{2}){4}$/.test(value);
+                    }
+                        function envoiPhone ()
+                        {   
+                            if(regexPhone(telephone))
+                            {
+                                return true;
+                            }
+                            else
+                                {
+                                    alert("Votre telephone est invalide");
+                                    return false;
+                                }
+                        }  
+
+                    //Adresse
+                    function regexAdresse (value)
+                    {
+                        return /^[^@&"()!_$*€£`+=\/;?#]+$/.test(value);
+                    }
+                        function envoiAdresse ()
+                        {   
+                            if(regexAdresse(adress))
+                            {
+                                return true;
+                            }
+                            else
+                                {
+                                    alert("Votre adresse est invalide");
+                                    return false;
+                                }
                         }
 
-                    deleteCardButton.addEventListener("click", deleteCard);   
-               }               
-            displayData()         
+                    //Code Postal
+                    function regexCodePostal (value)
+                    {
+                        return /^[0-9]{5}$/.test(value);
+                    }
+                        function envoiCodePostal ()
+                        {   
+                            if(regexCodePostal(CodePostal))
+                            {
+                                return true;
+                            }
+                            else
+                                {
+                                    alert("Votre Code Postal est invalide");
+                                    return false;
+                                }
+                        }  
+
+                        if(envoiPrenomNom() && envoiMail() && envoiPhone() && envoiCodePostal() && envoiAdresse())
+                            {
+                                localStorage.setItem("formulaire", window.JSON.stringify(formulaireDataToSend)); 
+      
+// Envoi du formulaire
+
+                        const contact = {
+                                firstName : firstName, 
+                                lastName : lastName,
+                                address : adress, 
+                                city : city, 
+                                email : email,
+                            };                
+                        const aEnvoyer = {contact, products};
+                        const options =
+                            {
+                                method:'POST',
+                                body: JSON.stringify(aEnvoyer),
+                                headers: {
+                                    "Content-Type" : "application/json"
+                                }
+                            }
+                        
+                        fetch("http://localhost:3000/api/cameras/order", options)
+                        .then(function(response) 
+                        {   
+                            console.log(response);
+                            return response.json(); 
+                        })
+                        .then(function(response) 
+                        {
+                            return response.orderId;
+                        })  
+                        .then(function(response)
+                        {
+                            localStorage.setItem("confirmation", response);
+                        })
+                        .then(function(response)
+                        {
+                            window.location.assign('confirmation.html');
+                        });
+
+                            }     
+                            else
+                            {
+                                console.log("envoi LS ko" ) 
+                            }   
+                        }
+            buttonForm.addEventListener("click", sendForm);
+                
+//Affichage des données dans les input (Si LS existe)
+            const dataLocalStorage = JSON.parse(window.localStorage.getItem("formulaire"));
+            function displayDataLS(input)
+                {
+                    document.getElementById(`${input}`).value = dataLocalStorage[input];
+                }
+            displayDataLS("firstName");
+            displayDataLS("lastName");
+            displayDataLS("email");
+            displayDataLS("telephone");
+            displayDataLS("city");
+            displayDataLS("adress"); 
+            displayDataLS("CodePostal");          
         }
 
 
-        
-  /*let prixTotalLocalStorage = JSON.parse(localStorage.getItem('prixTotal'));
-                            
-                            if(prixTotalLocalStorage)
-                                {
-                                    prix.push(prixTotal);
-                                    localStorage.setItem("prixTotal", JSON.stringify(prixTotalLocalStorage));
-                                }
-                                else
-                                    {
-                                        prix = [];
-                                        prix.push(prixTotal);
-                                        localStorage.setItem("prixTotal", JSON.stringify(prixTotalLocalStorage));
-                                    }*/
-
-
-//probleme de sécurité: innerHTML sur la quantité.
- /*const templateProduct = document.getElementById("template_product");
-                        const clone = document.importNode(templateProduct.content, true);
-
-                        clone.getElementById("card_quantity_input").value = quantitéDuTableau;
-
-                        document.getElementById("card_product_bloc").appendChild(clone);*/
-
-
-        /*//V2
-        for(i = 0; i<produitLocalStorage.length; i++)
-        {
-            let quantity = quantitéLocalStorage[i];
-       
-            main();
-            
-            async function main()
-            {
-                const articles = await getData();    
-                displayData (articles);  
-            };
-                 
-            //puis faire un fetch sur l'url en lui rajoutant l'id afin d'afficher les éléments du produit selectionné.
-            function getData ()
-                {
-                    let id = produitLocalStorage[i];
-                    
-                    return fetch(`http://localhost:3000/api/cameras/${id}`)
-                        .then(function(response) 
-                        {   
-                            return response.json();  
-                        })
-                        .then(function(responseArticles) 
-                        {
-                            return responseArticles;
-                        })
-                        .catch(function(error) 
-                        {
-                            alert(error);
-                        });
-                };
-
-                function displayData(article)
-                    {                            
-        
-                        let prixTotalProduit = article.price*quantity;
-                        
-                        console.log(prixTotalProduit);
-
-                        //prix total du panier:
-                        let prixTotalPanierArray = [];
-
-                        prixTotalPanierArray.push(prixTotalProduit);                      
-                        console.log(prixTotalPanierArray)
-                        
-                        let prixTotalPanier;
-                        prixTotalPanier += prixTotalPanierArray[i];
-                        console.log(prixTotalPanierArray[i])
-                        console.log(prixTotalPanier)
-                                    
-                        for(i = 0; i<produitLocalStorage.length; i++)
-                            {                                  
-                                
-                            }
-                        
-                        
-                        structureProduitPanier = structureProduitPanier + 
-                        `<img id="card_product_bloc_photo" src="${article.imageUrl}">`+`<br><br>`+ 
-                        `nom: `+`${article.name}`+`<br><br>` + 
-                        `quantité: `+`${quantity}`+`<br><br>` +
-                        `${article.description}`+`<br><br>`+
-                        `prix unitaire: `+`${article.price}`+`<br><br>`
-                        +
-                        `prix total: `+`${prixTotalProduit}`+`<br><br>`;
-
-                        document.getElementById("card_section").innerHTML = structureProduitPanier ; 
-                    }*/
-
-
-
-                        
+  
