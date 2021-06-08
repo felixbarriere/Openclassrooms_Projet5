@@ -16,7 +16,7 @@ async function main()
 
 function getData ()
 {
-    return fetch(`http://localhost:3000/api/cameras/${id}`)
+    return fetch(`https://orinocofelixbarriere.herokuapp.com/api/cameras/${id}`)
         .then(function(response) 
         {   
             return response.json();  
@@ -33,28 +33,7 @@ function getData ()
 
 function displayData (articles)
 {
-//Afficher le produit selectionné
-
-    // const templateProduct = document.getElementById("template_product");
-    // const clone = document.importNode(templateProduct.content, true);
-
-    // clone.getElementById("card_product_bloc_photo_container").innerHTML += `<img id="card_product_bloc_photo" src="${articles.imageUrl}">`;
-    // clone.getElementById("card_product_bloc_text_name").textContent = articles.name;
-    // clone.getElementById("card_product_bloc_text_description").textContent = articles.description;
-    // clone.getElementById("card_product_bloc_text_price").textContent = articles.price + " euros";
-
-    // for(let i=0; i < articles.lenses.length; i++ )
-    //     {
-    //         clone.getElementById("card_product_bloc_text_lenses").innerHTML += 
-    //         `<input type="radio" id="checkbox" name="lens">
-    //         <label id="checkbox_label">${articles.lenses[i]}</label>`;
-    //     }
-
-    // clone.getElementById("container_product_bloc_text_button").innerHTML = `
-    // <a id="product_bloc_text_button" type="button" >Ajouter au panier</a>`
-    // // href="panier.html"
-
-    // document.getElementById("product_section").appendChild(clone);   
+//Afficher le produit selectionné   
 
     structureProduit = `<div id="card_product_bloc">
 
@@ -63,10 +42,8 @@ function displayData (articles)
         <h2 id="card_product_bloc_text_name">${articles.name}</h2>
         <p id="card_product_bloc_text_description">${articles.description}</p>
         <div id="card_product_bloc_text_lenses_container">
-        <p>Objectif:</p>
-        <div id="card_product_bloc_text_lenses">
-           
-        </div>
+            <p>Objectif:</p>
+            <div id="card_product_bloc_text_lenses"></div>
         </div>
         <div id="card_product_bloc_text_quantity">
             <p>Quantité:</p>
@@ -91,6 +68,7 @@ function displayData (articles)
      <label id="checkbox_label">${articles.lenses[i]}</label>`
      console.log( articles.lenses[i])
     }
+
 //Ajouter les éléments au LocalStorage
 
     let buttonElt = document.getElementById("container_product_bloc_text_button")
@@ -107,7 +85,7 @@ function displayData (articles)
             if(produitLocalStorage && quantity !== 0)
                 {
                     //Si un produit existe déjà dans le panier, on ajoute un nouveau produit au tableau
-                    //Si le produit existe déjà dans le Local Storage, on additionne les quantités
+                    //Si ce produit existe déjà dans le Local Storage, on additionne les quantités
 
                     function canAddItem(items, id)
                     {
