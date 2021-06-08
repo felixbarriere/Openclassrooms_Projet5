@@ -1,4 +1,5 @@
 let produitLocalStorage = JSON.parse(window.localStorage.getItem('produit'));
+console.log("hello")
 
 if (!produitLocalStorage || produitLocalStorage == "")
     {
@@ -10,9 +11,10 @@ if (!produitLocalStorage || produitLocalStorage == "")
             let prixArray = [];
             const products = [];
 
+            console.log("hello")
 
 //Affichage des produits selectionnés (via le Local Storage)                      
-
+// si un objet est déjà dans la liste, il doit s'y ajouter et ne pas créer un objet supplémentaire
             for(i = 0; i<produitLocalStorage.length; i++)
                 {         
                     let tableauLS = produitLocalStorage[i];
@@ -38,7 +40,6 @@ if (!produitLocalStorage || produitLocalStorage == "")
                             <div id="card_bloc_text_quantity">
                                 <p>Quantité: </p>
                                 <div> ${quantity}</div>
-                                <input type="number" value=${quantity} id="card_quantity_input" min="0" max="10">
                             </div>                             
                             <div id="card_bloc_text_price_container">
                                 <p>Prix:</p>
@@ -52,20 +53,10 @@ if (!produitLocalStorage || produitLocalStorage == "")
 
                     document.getElementById("card_bloc").innerHTML = structureProduitPanier;
 
-                    //let quantity2 = document.getElementById("card_quantity_input").value;
-
-                    // produitLocalStorage[i][6] = document.getElementById("card_quantity_input").value;
-                    //localStorage.setItem("produit", window.JSON.stringify(quantity));
-
-                    // console.log(document.getElementById("card_quantity_input").value)
-                    // console.log(produitLocalStorage[i][6])
-                    // console.log(quantity)
-                    // console.log(produitLocalStorage)
-
                     prixArray.push(prixProduit); 
                     products.push(id);
-                }  
-                
+                }
+         
 //suppression d'un produit                       
 
             document.addEventListener("click", event =>
@@ -145,7 +136,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                 </div>
                 <div>
                     <label>Adresse</label>
-                    <textarea type="text" id="adress" name="Votre adresse" required></textarea>
+                    <input type="text" id="adress" name="Votre adresse" required>
                 </div>
                 <div>
                     <label>Code Postal</label>
@@ -195,9 +186,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                         function envoiPrenomNom ()
                         {   
                             if(regexPrenomNomVille(firstName) && regexPrenomNomVille(lastName) && regexPrenomNomVille(city))
-                            {
                                 return true;
-                            }
                             else
                                 {
                                     alert("Prénom, Nom, Ville: Chiffres en symboles non autorisés, maximum 20 caractères");
@@ -246,7 +235,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                         return /^[^@&"()!_$*€£`+=\/;?#]+$/.test(value);
                     }
                         function envoiAdresse ()
-                        {   
+                        {                            
                             if(regexAdresse(adress))
                             {
                                 return true;

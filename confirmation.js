@@ -27,3 +27,4 @@ let récapitulatif = `
                 }
             
             deleteItemsLS();
+            localStorage.setItem("confirmation", idLS);
