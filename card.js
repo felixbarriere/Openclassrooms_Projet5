@@ -288,7 +288,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                                 }
                             }
                         
-                        fetch("http://localhost:3000/api/cameras/order", options)
+                        fetch("https://orinocofelixbarriere.herokuapp.com/api/cameras/order", options)
                         .then(function(response) 
                         {   
                             console.log(response);
