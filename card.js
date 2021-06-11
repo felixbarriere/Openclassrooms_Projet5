@@ -36,7 +36,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                             <img id="card_bloc_photo" src="${image}"></img>
                         </div> 
                         <div id="card_bloc_text">
-                            <h2 id="card_bloc_text_name">${name}</h2>                                                                                                                
+                            <h3 id="card_bloc_text_name">${name}</h3>                                                                                                                
                             <div id="card_bloc_text_quantity">
                                 <p>Quantité: </p>
                                 <div> ${quantity}</div>
@@ -288,7 +288,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                                 }
                             }
                         
-                        fetch("http://localhost:3000/api/cameras/order", options)
+                        fetch("https://orinocofelixbarriere.herokuapp.com/api/cameras/order", options)
                         .then(function(response) 
                         {   
                             console.log(response);
