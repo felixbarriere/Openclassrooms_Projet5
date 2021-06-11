@@ -84,8 +84,8 @@ function displayData (articles)
                 
             if(produitLocalStorage && quantity !== 0)
                 {
-                    //Si un produit existe déjà dans le panier, on ajoute un nouveau produit au tableau
-                    //Si ce produit existe déjà dans le Local Storage, on additionne les quantités
+            //Si un produit existe déjà dans le panier, on ajoute un nouveau produit au tableau
+            //Si ce produit existe déjà dans le Local Storage, on additionne les quantités
 
                     function canAddItem(items, id)
                     {
@@ -118,7 +118,7 @@ function displayData (articles)
                     alert("Votre produit a bien été ajouté au panier"); 
                 }
             
-        //s'il n'y a pas de produit dans localStorage
+            //s'il n'y a pas de produit dans localStorage
             else
                 {
                     produitLocalStorage = [];

@@ -315,20 +315,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                         }
             buttonForm.addEventListener("click", sendForm);
                 
-//Affichage des données dans les input (Si LS existe)
-            const dataLocalStorage = JSON.parse(window.localStorage.getItem("formulaire"));
-            function displayDataLS(input)
-                {
-                    document.getElementById(`${input}`).value = dataLocalStorage[input];
-                }
-            displayDataLS("firstName");
-            displayDataLS("lastName");
-            displayDataLS("email");
-            displayDataLS("telephone");
-            displayDataLS("city");
-            displayDataLS("adress"); 
-            displayDataLS("CodePostal");          
-        }
+
 
 
   

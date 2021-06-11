@@ -16,7 +16,7 @@ let récapitulatif = `
 
             document.getElementById("confirmation_section").innerHTML = récapitulatif; 
 
-            // en quittant la page confirmation: supprimer toutes les données du LS
+// en quittant la page confirmation: supprimer toutes les données du LS
 
             const mainLogo = document.getElementById("main_logo");
             console.log(mainLogo)

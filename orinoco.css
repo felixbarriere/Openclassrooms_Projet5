@@ -74,7 +74,7 @@ a{
 /***********************HEADER***********/
 
 header{
-    background-color: rgba(243,233,241,255);   
+    background-color: rgba(243,233,241,254);   
 }
 
 header > div
@@ -113,7 +113,7 @@ nav > a
     margin: auto;
     padding: 0 0 5rem 0;
     position: relative;
-    -moz-box-sizing: border-box;
+    /* -moz-box-sizing: border-box; */
      box-sizing: border-box;
 
 }
@@ -235,7 +235,7 @@ footer
 
 
 
-#card_product_bloc, #card_product_bloc2,
+#card_product_bloc, #card_product_bloc2
 {
     margin: 1rem 3rem ;
 }
@@ -431,11 +431,6 @@ form > h2
     #card_product_bloc_text
     {
         padding-right: 0;
-    }
-
-    .card_product_bloc_text
-    {
-        padding-right: 1rem;
     }
 
 
