@@ -433,6 +433,11 @@ form > h2
         padding-right: 0;
     }
 
+    .card_product_bloc_text
+    {
+        padding-right: 1rem;
+    }
+
 
     #form_input
     {
