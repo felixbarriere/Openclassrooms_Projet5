@@ -22,7 +22,7 @@ if (!produitLocalStorage || produitLocalStorage == "")
                     let image = tableauLS[0]
                     let name = tableauLS[1]
                     let description = tableauLS[2]
-                    let prix = tableauLS[3]
+                    let prix = tableauLS[3]/100
                     let lenses = tableauLS[4]
                     let id = tableauLS[5]
                     let quantity = tableauLS[6]
@@ -315,7 +315,19 @@ if (!produitLocalStorage || produitLocalStorage == "")
                         }
             buttonForm.addEventListener("click", sendForm);
                 
-         
+//Affichage des données dans les input (Si LS existe)
+            const dataLocalStorage = JSON.parse(window.localStorage.getItem("formulaire"));
+            function displayDataLS(input)
+                {
+                    document.getElementById(`${input}`).value = dataLocalStorage[input];
+                }
+            displayDataLS("firstName");
+            displayDataLS("lastName");
+            displayDataLS("email");
+            displayDataLS("telephone");
+            displayDataLS("city");
+            displayDataLS("adress"); 
+            displayDataLS("CodePostal");          
         }
 
 

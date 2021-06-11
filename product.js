@@ -51,7 +51,7 @@ function displayData (articles)
         </div>
         <div id="card_product_bloc_text_price_container">
             <p>Prix unitaire:</p>
-            <div id="card_product_bloc_text_price">${articles.price} euros</div>
+            <div id="card_product_bloc_text_price">${articles.price/100} euros</div>
         </div>
         <div id="container_product_bloc_text_button">
             <a id="product_bloc_text_button" type="button" href="panier.html">Ajouter au panier</a>

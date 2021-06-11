@@ -40,7 +40,7 @@ function displayData (articles)
         <div id="product_bloc_text">
                 <h2 id="product_bloc_text_name">${articles.name}</h2>
                 <div id="product_bloc_text_description">${articles.description}</div>
-                <div id="product_bloc_text_price">${articles.price} euros</div>
+                <div id="product_bloc_text_price">${articles.price/100} euros</div>
                 <div id="container_product_bloc_text_button"><a id="product_bloc_text_button" type="button" href="produit.html?${articles._id}">Plus d'informations</a></div>         
         </div>
     </div>`
